@@ -1,0 +1,51 @@
+{
+  "manifest": {
+    "publishingInformation": {
+      "locales": {
+        "es-MX": {
+          "summary": "Descripcion corta",
+          "examplePhrases": [
+            "Alexa, Recomiéndame una película",
+            "hola",
+            "ayuda"
+          ],
+          "name": "Recomiéndame una película",
+          "description": "Description completa"
+        },
+        "es-ES": {
+          "summary": "Descripcion corta",
+          "examplePhrases": [
+            "Alexa, Recomiéndame una película",
+            "hola",
+            "ayuda"
+          ],
+          "name": "Recomiéndame una película",
+          "description": "Description completa"
+        },
+        "en-US": {
+          "summary": "Descripcion corta",
+          "examplePhrases": [
+            "Alexa, Recommend me a movie",
+            "hola",
+            "ayuda"
+          ],
+          "name": "Recommend me a movie",
+          "description": "Description completa"
+        }
+      },
+      "isAvailableWorldwide": true,
+      "testingInstructions": "Instrucciones para test.",
+      "category": "KNOWLEDGE_AND_TRIVIA",
+      "distributionCountries": []
+    },
+    "apis": {
+      "custom": {
+        "endpoint": {
+          "sourceDir": "lambda/custom",
+          "uri": "alexa-recomienda-pelicula"
+        }
+      }
+    },
+    "manifestVersion": "1.0"
+  }
+}

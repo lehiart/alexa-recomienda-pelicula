@@ -1,0 +1,39 @@
+{
+  "deploy_settings": {
+    "default": {
+      "skill_id": "amzn1.ask.skill.7d7e0d51-8396-45d3-9b01-9f6ef823d139",
+      "was_cloned": false,
+      "merge": {},
+      "resources": {
+        "manifest": {
+          "eTag": "da96787a18d311f8e1719a73fcd67298"
+        },
+        "interactionModel": {
+          "es-MX": {
+            "eTag": "2bc5c2397a98ae60e8e3decb6b97406d"
+          },
+          "en-US": {
+            "eTag": "ef7f38225e9413e8bed9b8ef188bb4c3"
+          },
+          "es-ES": {
+            "eTag": "2bc5c2397a98ae60e8e3decb6b97406d"
+          }
+        },
+        "lambda": [
+          {
+            "alexaUsage": [
+              "custom/default"
+            ],
+            "arn": "arn:aws:lambda:us-east-1:701318377605:function:alexa-recomienda-pelicula",
+            "awsRegion": "us-east-1",
+            "codeUri": "lambda/custom",
+            "functionName": "alexa-recomienda-pelicula",
+            "handler": "index.handler",
+            "revisionId": "19a358b4-dceb-4259-b87a-8f06c77ab679",
+            "runtime": "nodejs8.10"
+          }
+        ]
+      }
+    }
+  }
+}
