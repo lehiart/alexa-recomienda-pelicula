@@ -1,7 +1,7 @@
 /* eslint-disable  func-names */
 /* eslint-disable  no-console */
 const alexa = require('ask-sdk');
-const  sprintf = require('i18next-sprintf-postprocessor');
+const sprintf = require('i18next-sprintf-postprocessor');
 const i18n = require('i18next');
 const languageString = require('./constants');
 
@@ -11,15 +11,13 @@ const LaunchRequestHandler = {
   },
   async handle(handlerInput) {
     const attributes = handlerInput.attributesManager.getRequestAttributes();
-
-    // const speechText = 'bienvenido';
-    const speechText = attributes.t('GAME_NAME', 'PEPE RANA');
-
+    const speechText = attributes.t('WELCOME_MSG');
+    const repromptText = attributes.t('WELCOME_MSG_REPROMPT');
 
     return handlerInput.responseBuilder
       .speak(speechText)
-      .reprompt(speechText)
-      .withSimpleCard('Hola Mundo', speechText)
+      .reprompt(repromptText)
+      .withSimpleCard('', speechText)
       .getResponse();
   },
 };
@@ -27,10 +25,25 @@ const LaunchRequestHandler = {
 const GenresSelectIntentHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-      && handlerInput.requestEnvelope.request.intent.name === 'HelloWorldIntent';
+      && handlerInput.requestEnvelope.request.intent.name === 'GenresIntent';
   },
   handle(handlerInput) {
-    const speechText = 'Hola Mundo!';
+    const speechText = 'Hola genero!';
+
+    return handlerInput.responseBuilder
+      .speak(speechText)
+      .withSimpleCard('Hola Mundo', speechText)
+      .getResponse();
+  },
+};
+
+const DateSelectIntentHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'DateIntent';
+  },
+  handle(handlerInput) {
+    const speechText = 'Hola fecha!';
 
     return handlerInput.responseBuilder
       .speak(speechText)
@@ -121,6 +134,7 @@ exports.handler = skillBuilder
   .addRequestHandlers(
     LaunchRequestHandler,
     GenresSelectIntentHandler,
+    DateSelectIntentHandler,
     HelpIntentHandler,
     CancelAndStopIntentHandler,
     SessionEndedRequestHandler,

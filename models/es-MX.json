@@ -1,188 +1,372 @@
 {
-  "interactionModel": {
-      "languageModel": {
-          "invocationName": "recomiéndame una película",
-          "intents": [
-              {
-                  "name": "AMAZON.CancelIntent",
-                  "samples": []
-              },
-              {
-                  "name": "AMAZON.HelpIntent",
-                  "samples": []
-              },
-              {
-                  "name": "AMAZON.StopIntent",
-                  "samples": []
-              },
-              {
-                  "name": "GenresIntent",
-                  "slots": [
-                      {
-                          "name": "Genres",
-                          "type": "Genres"
-                      }
-                  ],
-                  "samples": [
-                      "una de {Genres}",
-                      "de {Genres}",
-                      "{Genres}",
-                      "genero {Genres}"
-                  ]
-              },
-              {
-                  "name": "AMAZON.NavigateHomeIntent",
-                  "samples": []
-              }
-          ],
-          "types": [
-              {
-                  "name": "Genres",
-                  "values": [
-                      {
-                          "id": "28",
-                          "name": {
-                              "value": "Acción"
-                          }
-                      },
-                      {
-                          "id": "12",
-                          "name": {
-                              "value": "Aventura"
-                          }
-                      },
-                      {
-                          "id": "16",
-                          "name": {
-                              "value": "Animación"
-                          }
-                      },
-                      {
-                          "id": "35",
-                          "name": {
-                              "value": "Comedia",
-                              "synonyms": [
-                                  "risas",
-                                  "risa"
-                              ]
-                          }
-                      },
-                      {
-                          "id": "80",
-                          "name": {
-                              "value": "Crimen"
-                          }
-                      },
-                      {
-                          "id": "99",
-                          "name": {
-                              "value": "Documental"
-                          }
-                      },
-                      {
-                          "id": "18",
-                          "name": {
-                              "value": "Drama"
-                          }
-                      },
-                      {
-                          "id": "10751",
-                          "name": {
-                              "value": "Familia",
-                              "synonyms": [
-                                  "familiar"
-                              ]
-                          }
-                      },
-                      {
-                          "id": "14",
-                          "name": {
-                              "value": "Fantasía"
-                          }
-                      },
-                      {
-                          "id": "36",
-                          "name": {
-                              "value": "Historia"
-                          }
-                      },
-                      {
-                          "id": "27",
-                          "name": {
-                              "value": "Terror",
-                              "synonyms": [
-                                  "sustos",
-                                  "susto",
-                                  "miedo"
-                              ]
-                          }
-                      },
-                      {
-                          "id": "10402",
-                          "name": {
-                              "value": "Música",
-                              "synonyms": [
-                                  "musical"
-                              ]
-                          }
-                      },
-                      {
-                          "id": "9648",
-                          "name": {
-                              "value": "Misterio"
-                          }
-                      },
-                      {
-                          "id": "10749",
-                          "name": {
-                              "value": "Romance",
-                              "synonyms": [
-                                  "amor"
-                              ]
-                          }
-                      },
-                      {
-                          "id": "878",
-                          "name": {
-                              "value": "Ciencia ficción"
-                          }
-                      },
-                      {
-                          "id": "10770",
-                          "name": {
-                              "value": "Película de TV",
-                              "synonyms": [
-                                  "television"
-                              ]
-                          }
-                      },
-                      {
-                          "id": "53",
-                          "name": {
-                              "value": "Suspenso"
-                          }
-                      },
-                      {
-                          "id": "10752",
-                          "name": {
-                              "value": "Bélica",
-                              "synonyms": [
-                                  "guerra"
-                              ]
-                          }
-                      },
-                      {
-                          "id": "37",
-                          "name": {
-                              "value": "Western",
-                              "synonyms": [
-                                  "vaqueros"
-                              ]
-                          }
-                      }
-                  ]
-              }
-          ]
-      }
-  }
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "recomiéndame una película",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "GenresIntent",
+                    "slots": [
+                        {
+                            "name": "Genres",
+                            "type": "Genres"
+                        }
+                    ],
+                    "samples": [
+                        "una {Genres}",
+                        "una de {Genres}",
+                        "de {Genres}",
+                        "{Genres}",
+                        "genero {Genres}"
+                    ]
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "DateIntent",
+                    "slots": [
+                        {
+                            "name": "Release",
+                            "type": "ReleaseDate"
+                        },
+                        {
+                            "name": "Year",
+                            "type": "AMAZON.DATE"
+                        }
+                    ],
+                    "samples": [
+                        "del año {Year}",
+                        "una {Release}",
+                        "que sea {Release}",
+                        "del {Year}",
+                        "{Year}",
+                        "{Release}"
+                    ]
+                }
+            ],
+            "types": [
+                {
+                    "name": "Genres",
+                    "values": [
+                        {
+                            "id": "99999",
+                            "name": {
+                                "value": "todos",
+                                "synonyms": [
+                                    "todas",
+                                    "cualquiera",
+                                    "no se",
+                                    "del que sea",
+                                    "la que sea",
+                                    "el que sea"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "28",
+                            "name": {
+                                "value": "Acción"
+                            }
+                        },
+                        {
+                            "id": "12",
+                            "name": {
+                                "value": "Aventura"
+                            }
+                        },
+                        {
+                            "id": "16",
+                            "name": {
+                                "value": "Animación",
+                                "synonyms": [
+                                    "caricaturas",
+                                    "caricatura",
+                                    "animada"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "35",
+                            "name": {
+                                "value": "Comedia",
+                                "synonyms": [
+                                    "risas",
+                                    "risa"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "80",
+                            "name": {
+                                "value": "Crimen",
+                                "synonyms": [
+                                    "delincuentes"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "99",
+                            "name": {
+                                "value": "Documental"
+                            }
+                        },
+                        {
+                            "id": "18",
+                            "name": {
+                                "value": "Drama"
+                            }
+                        },
+                        {
+                            "id": "10751",
+                            "name": {
+                                "value": "Familia",
+                                "synonyms": [
+                                    "familiar"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "14",
+                            "name": {
+                                "value": "Fantasía"
+                            }
+                        },
+                        {
+                            "id": "36",
+                            "name": {
+                                "value": "Historia"
+                            }
+                        },
+                        {
+                            "id": "27",
+                            "name": {
+                                "value": "Terror",
+                                "synonyms": [
+                                    "sustos",
+                                    "susto",
+                                    "miedo"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "10402",
+                            "name": {
+                                "value": "Música",
+                                "synonyms": [
+                                    "musical"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "9648",
+                            "name": {
+                                "value": "Misterio"
+                            }
+                        },
+                        {
+                            "id": "10749",
+                            "name": {
+                                "value": "Romance",
+                                "synonyms": [
+                                    "cursi",
+                                    "amor"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "878",
+                            "name": {
+                                "value": "Ciencia ficción"
+                            }
+                        },
+                        {
+                            "id": "10770",
+                            "name": {
+                                "value": "Película de TV",
+                                "synonyms": [
+                                    "television"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "53",
+                            "name": {
+                                "value": "Suspenso"
+                            }
+                        },
+                        {
+                            "id": "10752",
+                            "name": {
+                                "value": "Bélica",
+                                "synonyms": [
+                                    "batallas",
+                                    "guerra"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "37",
+                            "name": {
+                                "value": "Western",
+                                "synonyms": [
+                                    "oeste",
+                                    "vaqueros"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "ReleaseDate",
+                    "values": [
+                        {
+                            "id": "88888",
+                            "name": {
+                                "value": "del que sea",
+                                "synonyms": [
+                                    "de cualquier año",
+                                    "del año que sea",
+                                    "cualquiera",
+                                    "como sea",
+                                    "lo que sea",
+                                    "la que sea"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "111",
+                            "name": {
+                                "value": "vieja",
+                                "synonyms": [
+                                    "pasada"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "222",
+                            "name": {
+                                "value": "reciente",
+                                "synonyms": [
+                                    "nueva"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "dialog": {
+            "intents": [
+                {
+                    "name": "GenresIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "Genres",
+                            "type": "Genres",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.504717597604.180542331867"
+                            },
+                            "validations": [
+                                {
+                                    "type": "hasEntityResolutionMatch",
+                                    "prompt": "Slot.Validation.504717597604.180542331867.119169004168"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "DateIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "Release",
+                            "type": "ReleaseDate",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {},
+                            "validations": [
+                                {
+                                    "type": "hasEntityResolutionMatch",
+                                    "prompt": "Slot.Validation.351663511289.767612211149.651841081726"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Year",
+                            "type": "AMAZON.DATE",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {}
+                        }
+                    ]
+                }
+            ],
+            "delegationStrategy": "ALWAYS"
+        },
+        "prompts": [
+            {
+                "id": "Slot.Validation.504717597604.180542331867.119169004168",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Lo siento, el genero {Genres}  no esta disponible"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.504717597604.180542331867",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Elige un genero"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "¿De que genero deseas?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "¿De que genero quieres?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.351663511289.767612211149",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "¿Reciente o vieja?"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.351663511289.767612211149.651841081726",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Por favor, di una opcion valida."
+                    }
+                ]
+            }
+        ]
+    }
 }
