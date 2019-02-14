@@ -1,6 +1,7 @@
 /* eslint-disable  func-names */
 /* eslint-disable  no-console */
 const alexa = require('ask-sdk');
+const  sprintf = require('i18next-sprintf-postprocessor');
 const i18n = require('i18next');
 const languageString = require('./constants');
 
@@ -9,8 +10,11 @@ const LaunchRequestHandler = {
     return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
   },
   async handle(handlerInput) {
-    const { t } = await handlerInput.attributesManager.getSessionAttributes();
-    const speechText = t('GAME_NAME');
+    const attributes = handlerInput.attributesManager.getRequestAttributes();
+
+    // const speechText = 'bienvenido';
+    const speechText = attributes.t('GAME_NAME', 'PEPE RANA');
+
 
     return handlerInput.responseBuilder
       .speak(speechText)
@@ -37,16 +41,20 @@ const GenresSelectIntentHandler = {
 
 /* HELPERS */
 
-async function LocalizationInterceptor(handlerInput) {
-  const t = await i18n.init({
-    lng: handlerInput.requestEnvelope.request.locale,
-    resources: languageString,
-  });
-
-  const attributes = await handlerInput.attributesManager.getSessionAttributes();
-
-  await handlerInput.attributesManager.setSessionAttributes({ ...attributes, t });
-}
+const LocalizationInterceptor = {
+  process(handlerInput) {
+    i18n.use(sprintf).init({
+      fallbackLng: 'en',
+      lng: handlerInput.requestEnvelope.request.locale,
+      resources: languageString,
+      overloadTranslationOptionHandler: sprintf.overloadTranslationOptionHandler,
+    })
+      .then((t) => {
+        const attributes = handlerInput.attributesManager.getRequestAttributes();
+        attributes.t = (...args) => t(...args);
+      });
+  },
+};
 
 /* BUILT-IN INTENTS */
 
