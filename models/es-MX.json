@@ -16,44 +16,30 @@
                     "samples": []
                 },
                 {
-                    "name": "GenresIntent",
-                    "slots": [
-                        {
-                            "name": "Genres",
-                            "type": "Genres"
-                        }
-                    ],
-                    "samples": [
-                        "una {Genres}",
-                        "una de {Genres}",
-                        "de {Genres}",
-                        "{Genres}",
-                        "genero {Genres}"
-                    ]
-                },
-                {
                     "name": "AMAZON.NavigateHomeIntent",
                     "samples": []
                 },
                 {
-                    "name": "DateIntent",
+                    "name": "GetMovieDetails",
                     "slots": [
                         {
-                            "name": "Release",
-                            "type": "ReleaseDate"
+                            "name": "genre",
+                            "type": "Genres"
                         },
                         {
-                            "name": "Year",
+                            "name": "year",
                             "type": "AMAZON.DATE"
+                        },
+                        {
+                            "name": "released",
+                            "type": "ReleaseDate"
                         }
                     ],
                     "samples": [
-                        "del año {Year}",
-                        "una {Release}",
-                        "que sea {Release}",
-                        "del {Year}",
-                        "{Year}",
-                        "{Release}"
+                        "recomiendame una",
+                        "recomienda una",
+                        "recomienda una pelicula de {genre} que sea {released}",
+                        "recomienda una pelicula de {genre} del año {year}"
                     ]
                 }
             ],
@@ -271,34 +257,34 @@
         "dialog": {
             "intents": [
                 {
-                    "name": "GenresIntent",
+                    "name": "GetMovieDetails",
                     "confirmationRequired": false,
                     "prompts": {},
                     "slots": [
                         {
-                            "name": "Genres",
+                            "name": "genre",
                             "type": "Genres",
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "elicitation": "Elicit.Slot.504717597604.180542331867"
+                                "elicitation": "Elicit.Slot.700367038376.186406699005"
                             },
                             "validations": [
                                 {
                                     "type": "hasEntityResolutionMatch",
-                                    "prompt": "Slot.Validation.504717597604.180542331867.119169004168"
+                                    "prompt": "Slot.Validation.700367038376.186406699005.143412477804"
                                 }
                             ]
-                        }
-                    ]
-                },
-                {
-                    "name": "DateIntent",
-                    "confirmationRequired": false,
-                    "prompts": {},
-                    "slots": [
+                        },
                         {
-                            "name": "Release",
+                            "name": "year",
+                            "type": "AMAZON.DATE",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {}
+                        },
+                        {
+                            "name": "released",
                             "type": "ReleaseDate",
                             "confirmationRequired": false,
                             "elicitationRequired": false,
@@ -306,16 +292,9 @@
                             "validations": [
                                 {
                                     "type": "hasEntityResolutionMatch",
-                                    "prompt": "Slot.Validation.351663511289.767612211149.651841081726"
+                                    "prompt": "Slot.Validation.700367038376.1036429182427.1009480349552"
                                 }
                             ]
-                        },
-                        {
-                            "name": "Year",
-                            "type": "AMAZON.DATE",
-                            "confirmationRequired": false,
-                            "elicitationRequired": false,
-                            "prompts": {}
                         }
                     ]
                 }
@@ -364,6 +343,50 @@
                     {
                         "type": "PlainText",
                         "value": "Por favor, di una opcion valida."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.700367038376.186406699005",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Elige un genero"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "¿De que genero deseas?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "¿De que genero quieres?"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.700367038376.186406699005.143412477804",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Lo siento, el genero {genre}  no esta disponible"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.700367038376.1036429182427.1009480349552",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Por favor, di una opcion valida."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.700367038376.1036429182427",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "¿Reciente o vieja?"
                     }
                 ]
             }
