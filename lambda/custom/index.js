@@ -118,21 +118,6 @@ function buildMovieSpeechText(attributes, movies) {
   return output;
 }
 
-const LocalizationInterceptor = {
-  process(handlerInput) {
-    i18n.use(sprintf).init({
-      fallbackLng: 'en',
-      lng: handlerInput.requestEnvelope.request.locale,
-      resources: languageString,
-      overloadTranslationOptionHandler: sprintf.overloadTranslationOptionHandler,
-    })
-      .then((t) => {
-        const attributes = handlerInput.attributesManager.getRequestAttributes();
-        attributes.t = (...args) => t(...args);
-      });
-  },
-};
-
 function getSlotValues(filledSlots) {
   const slotValues = {};
 
@@ -173,6 +158,23 @@ function getSlotValues(filledSlots) {
 
   return slotValues;
 }
+
+/* INTERCEPTORS */
+
+const LocalizationInterceptor = {
+  process(handlerInput) {
+    i18n.use(sprintf).init({
+      fallbackLng: 'en',
+      lng: handlerInput.requestEnvelope.request.locale,
+      resources: languageString,
+      overloadTranslationOptionHandler: sprintf.overloadTranslationOptionHandler,
+    })
+      .then((t) => {
+        const attributes = handlerInput.attributesManager.getRequestAttributes();
+        attributes.t = (...args) => t(...args);
+      });
+  },
+};
 
 /* BUILT-IN INTENTS */
 
