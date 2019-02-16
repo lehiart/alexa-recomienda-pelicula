@@ -35,22 +35,76 @@ const MovieDetailsIntentHandler = {
     const slotValues = getSlotValues(filledSlots);
     const lng = handlerInput.requestEnvelope.request.locale;
 
-    // Validate year no more than today
+    // Validate year no more than current
     if (slotValues.year.resolved
       && (slotValues.year.resolved.substring(0, 4) > (new Date()).getFullYear())) {
       return handlerInput.responseBuilder
         .speak(attributes.t('YEAR_MAX_ERR'))
-        .withSimpleCard(attributes.t('ERR_MSG_CARD'), attributes.t('YEAR_MAX_ERR'))
+        .withSimpleCard(attributes.t('ERR_MSG_CARD_TITLE'), attributes.t('YEAR_MAX_ERR'))
         .getResponse();
     }
     console.log(slotValues);
 
     const movies = await getMoviesData(slotValues, lng);
-    const speechText = await buildMovieSpeechText(attributes, movies);
+    const speechText = await buildMovieSpeechText(attributes, movies.list);
+
+    console.log(movies);
+
+    // check if theres more pages of movies to reprompt for YES/NO
+    if (movies.next) {
+      handlerInput.attributesManager.setSessionAttributes({
+        movies: movies.remaining,
+        inProgress: true,
+        hasNextPage: true,
+      });
+
+      return handlerInput.responseBuilder
+        .speak(`${speechText} ${attributes.t('RECOMMEND_REPROMPT')}`)
+        .reprompt(attributes.t('RECOMMEND_REPROMPT'))
+        .withSimpleCard(attributes.t('ERR_MSG_CARD_TITLE'), speechText)
+        .getResponse();
+    }
 
     return handlerInput.responseBuilder
       .speak(speechText)
-      .withSimpleCard(attributes.t('ERR_MSG_CARD'), speechText)
+      .withSimpleCard(attributes.t('ERR_MSG_CARD_TITLE'), speechText)
+      .getResponse();
+  },
+};
+
+const YesIntentHandler = {
+  async canHandle(handlerInput) {
+    const sessionAttributes = await handlerInput.attributesManager.getSessionAttributes();
+    const { request } = handlerInput.requestEnvelope;
+
+    return sessionAttributes.inProgress && sessionAttributes.hasNextPage
+    && request.type === 'IntentRequest' && request.intent.name === 'AMAZON.YesIntent';
+  },
+  async handle(handlerInput) {
+    const attributes = handlerInput.attributesManager.getRequestAttributes();
+    const sessionAttributes = await handlerInput.attributesManager.getSessionAttributes();
+
+    const speechText = await buildMovieSpeechText(attributes, sessionAttributes.movies);
+
+    return handlerInput.responseBuilder
+      .speak(`${attributes.t('YES_INTENT_MSG')} ${speechText}`)
+      .getResponse();
+  },
+};
+
+const NoIntentHandler = {
+  async canHandle(handlerInput) {
+    const sessionAttributes = await handlerInput.attributesManager.getSessionAttributes();
+    const { request } = handlerInput.requestEnvelope;
+
+    return sessionAttributes.inProgress
+    && request.type === 'IntentRequest' && request.intent.name === 'AMAZON.NoIntent';
+  },
+  handle(handlerInput) {
+    const attributes = handlerInput.attributesManager.getRequestAttributes();
+
+    return handlerInput.responseBuilder
+      .speak(attributes.t('NO_INTENT_MSG'))
       .getResponse();
   },
 };
@@ -92,10 +146,19 @@ async function getMoviesData(slots, lng) {
 
   // return first 3 movies
   if (moviesList.results.length > 3) {
-    return parseMovieObject(moviesList.results.splice(0, 3));
+    return {
+      list: parseMovieObject(moviesList.results.splice(0, 3)),
+      next: true,
+      page: moviesList.page,
+      remaining: parseMovieObject(moviesList.results.splice(3)),
+    };
   }
 
-  return parseMovieObject(moviesList.results);
+  return {
+    list: parseMovieObject(moviesList.results),
+    next: false,
+    page: moviesList.page,
+  };
 }
 
 function parseMovieObject(list) {
@@ -110,9 +173,9 @@ function buildMovieSpeechText(attributes, movies) {
   let output = '';
 
   if (movies.length > 1) {
-    movies.forEach((movie, idx) => { output += ` ${idx > 0 ? attributes.t('RECOMEND_MSG_CONNECTOR', movie.title, movie.description) : attributes.t('RECOMEND_MESSAGE', movie.title, movie.description)}`; });
+    movies.forEach((movie, idx) => { output += ` ${idx > 0 ? attributes.t('RECOMMEND_MSG_CONNECTOR', movie.title, movie.description) : attributes.t('RECOMMEND_MESSAGE', movie.title, movie.description)}`; });
   } else {
-    output = attributes.t('RECOMENDATION_MESSAGE', movies[0].title, movies[0].description);
+    output = attributes.t('RECOMMENDATION_MESSAGE', movies[0].title, movies[0].description);
   }
 
   return output;
@@ -158,6 +221,19 @@ function getSlotValues(filledSlots) {
 
   return slotValues;
 }
+
+// function initSessionAttributes(handlerInput) {
+//   const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+//   // Check if user is invoking the skill the first time and initialize preset values
+//   // (could be an interceptor)
+//   if (Object.keys(sessionAttributes).length === 0) {
+//     handlerInput.attributesManager.setSessionAttributes({
+//       movies: [],
+//       inProgress: false,
+//       hasNextPage: false,
+//     });
+//   }
+// }
 
 /* INTERCEPTORS */
 
@@ -260,6 +336,8 @@ exports.handler = skillBuilder
   .addRequestHandlers(
     LaunchRequestHandler,
     MovieDetailsIntentHandler,
+    YesIntentHandler,
+    NoIntentHandler,
     HelpIntentHandler,
     CancelAndStopIntentHandler,
     FallbackHandler,

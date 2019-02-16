@@ -10,7 +10,7 @@
         },
         "interactionModel": {
           "es-MX": {
-            "eTag": "6482c85ce71a83f0f3c160681c9822eb"
+            "eTag": "32bd3bd136a3902f1bc1ad9801b8b068"
           },
           "en-US": {
             "eTag": "1195619397dd1126f81a03bb44b1aed9"
@@ -29,7 +29,7 @@
             "codeUri": "lambda/custom",
             "functionName": "alexa-recomienda-pelicula",
             "handler": "index.handler",
-            "revisionId": "58c04be9-f6c6-470e-9406-1af9c71972a0",
+            "revisionId": "276c357e-3949-4e3a-bd52-ebf0cb23f7a8",
             "runtime": "nodejs8.10"
           }
         ]

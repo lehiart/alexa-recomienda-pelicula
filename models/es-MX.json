@@ -36,6 +36,7 @@
                         }
                     ],
                     "samples": [
+                        "{genre}",
                         "di una",
                         "di unas",
                         "di varias",
@@ -959,6 +960,19 @@
                         "sugiereme unas peliculas del genero {genre} que sea {released}",
                         "sugiereme varias peliculas de {genre} que sea {released}",
                         "sugiereme varias peliculas del genero {genre} que sea {released}"
+                    ]
+                },
+                {
+                    "name": "AMAZON.YesIntent",
+                    "samples": [
+                        "simon",
+                        "si"
+                    ]
+                },
+                {
+                    "name": "AMAZON.NoIntent",
+                    "samples": [
+                        "nel"
                     ]
                 }
             ],
